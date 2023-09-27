@@ -8,6 +8,9 @@ cd colcon_ws/src
 
 # Clone the workshop repository
 git clone ...
+
+# Install the python dependencies
+python3 -m pip install reach_roscon_2023/requirements.txt
 ```
 
 ## Dependency install
