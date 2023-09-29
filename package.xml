@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>reach_roscon_2024</name>
+  <name>reach_roscon_2023</name>
   <version>0.0.0</version>
   <description>REACH Workshop repository for ROSCon 2023</description>
   <maintainer email="michael.ripperger@swri.org">Michael Ripperger</maintainer>
