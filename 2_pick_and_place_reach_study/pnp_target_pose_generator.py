@@ -72,13 +72,13 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
                  rand_seed: int = 0):
         """
 
-        :param bin_dims:
-        :param n_samples:
-        :param bin_normal_deviation:
+        :param bin_dims: Dimensions of the bin (m)
+        :param n_samples: Number of pose samples to generate
+        :param bin_normal_deviation: Angular deviation of any output pose z-axis from the unit z-axis (radians)
         :param bin_frame: TF frame associated with the bottom center of the bin
-        :param kinematic_base_frame:
-        :param node:
-        :param rand_seed:
+        :param kinematic_base_frame: TF frame associated with the base link of the kinematic chain of the robot
+        :param node: ROS2 node
+        :param rand_seed: seed number for the random number generator
         """
         super().__init__()
         # Set the seed for the RNG
@@ -95,8 +95,8 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         _ = TransformListener(buffer, node)
         rclpy.spin_once(node)
 
-        # Look up the transform from the robot kinematic base frame to the bin corner frame
-        base_to_bin = buffer.lookup_transform(kinematic_base_frame, bin_frame, Time(), Duration(seconds=3))
+        # TODO: Look up the transform from the robot kinematic base frame to the bin corner frame
+        # base_to_bin =
 
         # Convert to Numpy class member
         self.base_to_bin = to_numpy(base_to_bin)
@@ -107,17 +107,21 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         poses = np.empty((self.n_samples, 4, 4))
         poses[:, :, :] = np.eye(4)
 
-        # Randomly sample target 3D points inside the bin volume
-        random_points = np.random.random((self.n_samples, 3)) * self.bin_dims
+        # TODO: Use numpy to randomly sample target 3D points inside the bin volume. The output array shape should be (n, 3)
+        # random_points =
+
+        # Set the translation of the poses to the random points, centered inside the bin volume
         poses[:, :3, 3] = random_points - np.hstack([self.bin_dims[:2] / 2.0, 0])
 
         # Create a random surface normal
         theta = np.random.random((self.n_samples,)) * 2 * np.pi
         rot_z = create_z_axis_rotations(theta)
 
-        phi = np.random.random((self.n_samples,)) * self.bin_normal_deviation
+        # TODO: Use numpy to generate a set of random surface normal offset angles between [0, bin normal deviation]. The output array shape should be (n,)
+        # phi =
         rot_x = create_x_axis_rotations(phi)
 
+        # Set the orientation of the poses
         poses[:, :3, :3] = rot_z @ rot_x
 
         # Transform the poses into the robot base frame

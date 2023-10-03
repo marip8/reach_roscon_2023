@@ -1,25 +1,14 @@
 # Anchors
 planning_group: &planning_group manipulator
 kinematic_base_link: &kinematic_base_link base_link
-#collision_mesh_filename: &collision_mesh_filename package://reach_ros/demo/config/part.ply
-bin_frame: &bin_frame bin
-bin_dims: &bin_dims [0.25, 0.25, 0.25]
-bin_wall_thickness: &bin_wall_thickness 0.010
 
 optimization:
   radius: 0.2
   max_steps: 10
   step_improvement_threshold: 0.01
 
-ik_solver:
-  name: PNP_IKSolver
-  distance_threshold: 0.0
-  planning_group: *planning_group
-  touch_links: []
-  bin_frame: *bin_frame
-  bin_dims: *bin_dims
-  bin_dims_collision_scale: [1.5, 1.5, 1.0]
-  bin_wall_thickness: *bin_wall_thickness
+# TODO: configure the IK solver
+ik_solver: ~
 
 evaluator:
   name: MultiplicativeEvaluator
@@ -30,23 +19,16 @@ evaluator:
       planning_group: *planning_group
       distance_threshold: 0.025
       exponent: 2
-#      collision_mesh_filename: *collision_mesh_filename
       touch_links: []
 
 display:
   name: ROSDisplay
-#  collision_mesh_filename: *collision_mesh_filename
   kinematic_base_frame: *kinematic_base_link
   marker_scale: 0.05
 
-target_pose_generator:
-#  name: PointCloudTargetPoseGenerator
-  kinematic_base_frame: *kinematic_base_link
-  bin_frame: *bin_frame
-  bin_dims: *bin_dims
-  n_samples: 100
-  bin_normal_deviation: 0.785
-  rand_seed: 0
+# TODO: configure the target pose generator
+target_pose_generator: ~
+
 
 logger:
   name: BoostProgressConsoleLogger
