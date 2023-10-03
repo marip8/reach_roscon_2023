@@ -14,6 +14,6 @@
   <joint name="robot_to_bin" type="fixed">
     <parent link="base_link"/>
     <child link="bin"/>
-    <origin xyz="0.5 0.0 0.0"/>
+    <origin xyz="0.5 0.3 0.25"/>
   </joint>
 </robot>
