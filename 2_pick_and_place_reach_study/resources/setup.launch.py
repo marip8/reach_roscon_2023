@@ -9,7 +9,7 @@ from launch_ros.substitutions import FindPackageShare
 
 
 parameters = [
-  {'name': 'robot_description_file',          'description': 'Path to the URDF/xacro file',                     'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '2_pick_and_place_reach_study', 'solution', 'model', 'reach_study.xacro'])},
+  {'name': 'robot_description_file',          'description': 'Path to the URDF/xacro file',                     'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '2_pick_and_place_reach_study', 'resources', 'reach_study.xacro'])},
   {'name': 'use_rviz',                        'description': 'Flag indicating whether Rviz should be launchd',  'default': 'True'},
   {'name': 'rviz_config',                     'description': 'Reach study Rviz configuration',                  'default': PathJoinSubstitution([FindPackageShare('reach_ros'), 'launch', 'reach_study_config.rviz'])},
 ]
