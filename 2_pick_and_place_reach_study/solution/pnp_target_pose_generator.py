@@ -72,13 +72,13 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
                  rand_seed: int = 0):
         """
 
-        :param bin_dims:
-        :param n_samples:
-        :param bin_normal_deviation:
+        :param bin_dims: Dimensions of the bin (m)
+        :param n_samples: Number of pose samples to generate
+        :param bin_normal_deviation: Angular deviation of any output pose z-axis from the unit z-axis (radians)
         :param bin_frame: TF frame associated with the bottom center of the bin
-        :param kinematic_base_frame:
-        :param node:
-        :param rand_seed:
+        :param kinematic_base_frame: TF frame associated with the base link of the kinematic chain of the robot
+        :param node: ROS2 node
+        :param rand_seed: seed number for the random number generator
         """
         super().__init__()
         # Set the seed for the RNG
@@ -118,6 +118,7 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         phi = np.random.random((self.n_samples,)) * self.bin_normal_deviation
         rot_x = create_x_axis_rotations(phi)
 
+        # Set the orientation of the poses
         poses[:, :3, :3] = rot_z @ rot_x
 
         # Transform the poses into the robot base frame
