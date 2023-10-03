@@ -7,7 +7,6 @@ from launch.substitutions import Command
 from launch import LaunchContext
 from launch_ros.parameter_descriptions import ParameterValue
 from launch_ros.utilities import evaluate_parameters, normalize_parameters
-import numpy as np
 import os
 import rclpy
 import rclpy.node
@@ -15,8 +14,7 @@ from tempfile import NamedTemporaryFile
 import yaml
 
 
-def run_reach_study(config_file: str,
-                    target_pose_generator: reach.TargetPoseGenerator):
+def run_reach_study(config_file: str):
     # Load the file
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
@@ -32,24 +30,30 @@ def run_reach_study(config_file: str,
     loader.search_libraries_env = reach.SEARCH_LIBRARIES_ENV
 
     # Load the IK solver from a c++ plugin
-    ik_config = config["ik_solver"]
+    ik_config = config['ik_solver']
     ik_solver_factory = loader.createIKSolverFactoryInstance(ik_config["name"])
     ik_solver = ik_solver_factory.create(ik_config)
 
     # Load the evaluator from a c++ plugin
-    eval_config = config["evaluator"]
+    eval_config = config['evaluator']
     evaluator_factory = loader.createEvaluatorFactoryInstance(eval_config["name"])
     evaluator = evaluator_factory.create(eval_config)
 
     # Load the logger from a c++ plugin
-    display_config = config["display"]
+    display_config = config['display']
     display_factory = loader.createDisplayFactoryInstance(display_config["name"])
     display = display_factory.create(display_config)
 
     # Load the logger from a c++ plugin
-    logger_config = config["logger"]
+    logger_config = config['logger']
     logger_factory = loader.createLoggerFactoryInstance(logger_config["name"])
     logger = logger_factory.create(logger_config)
+
+    # Create the target pose generator
+    target_pose_generator = PnPTargetPoseGenerator(
+        node=rclpy.node.Node('tpg_node'),
+        **config['target_pose_generator'],
+    )
 
     study = reach.ReachStudy(ik_solver, evaluator, target_pose_generator, display, logger, params)
     study.run()
@@ -112,7 +116,7 @@ def main():
 
     # Define the ROS parameters needed for the c++ plugins
     xacro_file = os.path.join(reach_roscon_2023_path, 'reach_study.xacro')
-    srdf_file = os.path.join(reach_roscon_2023_path, 'model', 'reach_study.srdf')
+    srdf_file = os.path.join(reach_roscon_2023_path, 'reach_study.srdf')
     kinematics_file = os.path.join(reach_roscon_2023_path, 'kinematics.yaml')
     joint_limits_file = os.path.join(reach_ros_path, 'demo', 'model', 'joint_limits.yaml')
 
@@ -130,26 +134,8 @@ def main():
     }
     init_ros(parameters)
 
-    # Define parameters for the custom target pose generator
-    bin_dims = np.array([0.25, 0.25, 0.25])
-    n_samples = 100
-    bin_normal_deviation = np.radians(45)
-    bin_corner_frame = 'bin'
-    kinematic_base_frame = 'base_link'
-    node = rclpy.node.Node('tpg_node')
-
-    # Create the target pose generator
-    tpg = PnPTargetPoseGenerator(
-        bin_dims=bin_dims,
-        n_samples=n_samples,
-        bin_normal_deviation=bin_normal_deviation,
-        bin_corner_frame=bin_corner_frame,
-        kinematic_base_frame=kinematic_base_frame,
-        node=node,
-    )
-
     # Run the reach study
-    run_reach_study(config_file, tpg)
+    run_reach_study(config_file)
 
 
 if __name__ == '__main__':
