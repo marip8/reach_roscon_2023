@@ -2,7 +2,7 @@
 planning_group: &planning_group manipulator
 kinematic_base_link: &kinematic_base_link base_link
 #collision_mesh_filename: &collision_mesh_filename package://reach_ros/demo/config/part.ply
-bin_corner_frame: &bin_corner_frame bin
+bin_frame: &bin_frame bin
 bin_dims: &bin_dims [0.25, 0.25, 0.25]
 bin_wall_thickness: &bin_wall_thickness 0.010
 
@@ -16,7 +16,7 @@ ik_solver:
   distance_threshold: 0.0
   planning_group: *planning_group
   touch_links: []
-  bin_corner_frame: *bin_corner_frame
+  bin_frame: *bin_frame
   bin_dims: *bin_dims
   bin_wall_thickness: *bin_wall_thickness
 
@@ -41,7 +41,7 @@ display:
 target_pose_generator:
 #  name: PointCloudTargetPoseGenerator
   kinematic_base_frame: *kinematic_base_link
-  bin_corner_frame: *bin_corner_frame
+  bin_frame: *bin_frame
   bin_dims: *bin_dims
   n_samples: 100
   bin_normal_deviation: 0.785

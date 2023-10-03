@@ -63,10 +63,10 @@ def create_x_axis_rotations(angles: np.ndarray):
 
 class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
     def __init__(self,
-                 bin_dims: np.ndarray,
+                 bin_dims: List[float],
                  n_samples: int,
                  bin_normal_deviation: float,
-                 bin_corner_frame: str,
+                 bin_frame: str,
                  kinematic_base_frame: str,
                  node: rclpy.node.Node,
                  rand_seed: int = 0):
@@ -75,7 +75,7 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         :param bin_dims:
         :param n_samples:
         :param bin_normal_deviation:
-        :param bin_corner_frame:
+        :param bin_frame: TF frame associated with the bottom center of the bin
         :param kinematic_base_frame:
         :param node:
         :param rand_seed:
@@ -85,7 +85,8 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         np.random.seed(rand_seed)
 
         # Save parameters internally
-        self.bin_dims = bin_dims
+        assert len(bin_dims) == 3
+        self.bin_dims = np.array(bin_dims)
         self.n_samples = n_samples
         self.bin_normal_deviation = bin_normal_deviation
 
@@ -95,7 +96,7 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         rclpy.spin_once(node)
 
         # Look up the transform from the robot kinematic base frame to the bin corner frame
-        base_to_bin = buffer.lookup_transform(kinematic_base_frame, bin_corner_frame, Time(), Duration(seconds=3))
+        base_to_bin = buffer.lookup_transform(kinematic_base_frame, bin_frame, Time(), Duration(seconds=3))
 
         # Convert to Numpy class member
         self.base_to_bin = to_numpy(base_to_bin)
@@ -107,7 +108,8 @@ class PnPTargetPoseGenerator(reach.TargetPoseGenerator):
         poses[:, :, :] = np.eye(4)
 
         # Randomly sample target 3D points inside the bin volume
-        poses[:, :3, 3] = np.random.random((self.n_samples, 3)) * self.bin_dims
+        random_points = np.random.random((self.n_samples, 3)) * self.bin_dims
+        poses[:, :3, 3] = random_points - np.hstack([self.bin_dims[:2] / 2.0, 0])
 
         # Create a random surface normal
         theta = np.random.random((self.n_samples,)) * 2 * np.pi

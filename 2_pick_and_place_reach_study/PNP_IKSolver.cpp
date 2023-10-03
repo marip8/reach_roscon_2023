@@ -7,17 +7,17 @@
 #include <tf2_eigen/tf2_eigen.h>
 
 /**
- * @brief Creates a collision representation of a bin for MoveIt
+ * @brief Creates a collision representation of a bin for MoveIt, assuming the input frame represents the bottom center of the bin
  */
-moveit_msgs::msg::CollisionObject createBinCollisionObject(const std::string& corner_frame,
+moveit_msgs::msg::CollisionObject createBinCollisionObject(const std::string& frame,
                                                            const Eigen::Vector3d& dims,
                                                            const double wall_thickness)
 {
   moveit_msgs::msg::CollisionObject obj;
   obj.operation = moveit_msgs::msg::CollisionObject::ADD;
-  obj.header.frame_id = corner_frame;
+  obj.header.frame_id = frame;
 
-  const auto bin_center = Eigen::Isometry3d::Identity() * Eigen::Translation3d(dims.x() / 2.0, dims.y() / 2.0, 0.0);
+  const auto bin_center = Eigen::Isometry3d::Identity(); // * Eigen::Translation3d(dims.x() / 2.0, dims.y() / 2.0, 0.0);
 
   // Add a box for the bottom of the bin
   {
@@ -92,11 +92,11 @@ class PNP_IKSolver : public reach_ros::ik::MoveItIKSolver
 public:
   using reach_ros::ik::MoveItIKSolver::MoveItIKSolver;
 
-  void addBinCollisionObjects(const std::string& corner_frame,
+  void addBinCollisionObjects(const std::string& frame,
                               const Eigen::Vector3d& dims,
                               const double wall_thickness)
   {
-    moveit_msgs::msg::CollisionObject obj = createBinCollisionObject(corner_frame, dims, wall_thickness);
+    moveit_msgs::msg::CollisionObject obj = createBinCollisionObject(frame, dims, wall_thickness);
     if (!scene_->processCollisionObjectMsg(obj))
       throw std::runtime_error("Failed to add collision mesh to planning scene");
 
@@ -134,14 +134,14 @@ struct PNP_IKSolverFactory : public reach::IKSolverFactory
 
     // Add the collision representation of the bin
     {
-      auto corner_frame = reach::get<std::string>(config, "bin_corner_frame");
+      auto frame = reach::get<std::string>(config, "bin_frame");
       auto dims_vec = reach::get<std::vector<double>>(config, "bin_dims");
       if (dims_vec.size() != 3)
         throw std::runtime_error("Bin dimensions must be 3 values (x, y, z)");
       auto wall_thickness = reach::get<double>(config, "bin_wall_thickness");
       Eigen::Map<Eigen::Vector3d> dims(dims_vec.data());
 
-      ik_solver->addBinCollisionObjects(corner_frame, dims, wall_thickness);
+      ik_solver->addBinCollisionObjects(frame, dims, wall_thickness);
     }
 
     return ik_solver;
