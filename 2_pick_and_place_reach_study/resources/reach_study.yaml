@@ -12,11 +12,13 @@ optimization:
   step_improvement_threshold: 0.01
 
 ik_solver:
-  name: MoveItIKSolver
+  name: PNP_IKSolver
   distance_threshold: 0.0
   planning_group: *planning_group
-#  collision_mesh_filename: *collision_mesh_filename
   touch_links: []
+  bin_corner_frame: *bin_corner_frame
+  bin_dims: *bin_dims
+  bin_wall_thickness: *bin_wall_thickness
 
 evaluator:
   name: MultiplicativeEvaluator
