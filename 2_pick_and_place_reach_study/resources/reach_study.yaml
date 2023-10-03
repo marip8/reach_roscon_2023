@@ -18,6 +18,7 @@ ik_solver:
   touch_links: []
   bin_frame: *bin_frame
   bin_dims: *bin_dims
+  bin_dims_collision_scale: [1.5, 1.5, 1.0]
   bin_wall_thickness: *bin_wall_thickness
 
 evaluator:

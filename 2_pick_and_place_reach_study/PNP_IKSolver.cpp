@@ -135,11 +135,23 @@ struct PNP_IKSolverFactory : public reach::IKSolverFactory
     // Add the collision representation of the bin
     {
       auto frame = reach::get<std::string>(config, "bin_frame");
+
       auto dims_vec = reach::get<std::vector<double>>(config, "bin_dims");
       if (dims_vec.size() != 3)
         throw std::runtime_error("Bin dimensions must be 3 values (x, y, z)");
-      auto wall_thickness = reach::get<double>(config, "bin_wall_thickness");
       Eigen::Map<Eigen::Vector3d> dims(dims_vec.data());
+
+      // Optionally load a bin dimension scale factor
+      if (config["bin_dims_collision_scale"])
+      {
+        auto dims_scale_vec = reach::get<std::vector<double>>(config, "bin_dims_collision_scale");
+        if(dims_scale_vec.size() != 3)
+          throw std::runtime_error("Bin dimension scale factor must be 3 values (x, y, z)");
+        Eigen::Map<Eigen::Array3d> dims_scale(dims_scale_vec.data());
+        dims.array() *= dims_scale;
+      }
+
+      auto wall_thickness = reach::get<double>(config, "bin_wall_thickness");
 
       ik_solver->addBinCollisionObjects(frame, dims, wall_thickness);
     }
