@@ -14,6 +14,9 @@ from tempfile import NamedTemporaryFile
 import yaml
 
 
+REACH_PLUGIN_LIBS = ('reach_plugins', 'reach_ros_plugins', 'reach_roscon_2023_plugins')
+
+
 def run_reach_study(config_file: str):
     # Load the file
     with open(config_file, 'r') as file:
@@ -25,7 +28,7 @@ def run_reach_study(config_file: str):
     params.max_steps = opt_config["max_steps"]
     params.step_improvement_threshold = opt_config["step_improvement_threshold"]
 
-    os.environ[reach.SEARCH_LIBRARIES_ENV] = 'reach_plugins:reach_ros_plugins'
+    os.environ[reach.SEARCH_LIBRARIES_ENV] = os.pathsep.join(REACH_PLUGIN_LIBS)
     loader = reach.PluginLoader()
     loader.search_libraries_env = reach.SEARCH_LIBRARIES_ENV
 

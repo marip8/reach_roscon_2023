@@ -17,11 +17,12 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
+add_subdirectory(2_pick_and_place_reach_study)
+
 install(
   DIRECTORY
     0_setup
     1_standard_reach_study
-    2_pick_and_place_reach_study
     3_mobile_manipulator_reach_study
   DESTINATION
     share/${PROJECT_NAME}/
