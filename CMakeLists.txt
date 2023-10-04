@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME}_plugins SHARED)
 ament_target_dependencies(${PROJECT_NAME}_plugins PUBLIC reach_ros)
 
 add_subdirectory(2_pick_and_place_reach_study)
+add_subdirectory(3_mobile_manipulator_reach_study)
 
 install(TARGETS ${PROJECT_NAME}_plugins DESTINATION lib)
 
@@ -29,7 +30,6 @@ install(
   DIRECTORY
     0_setup
     1_standard_reach_study
-    3_mobile_manipulator_reach_study
   DESTINATION
     share/${PROJECT_NAME}/
 )
