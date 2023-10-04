@@ -2,7 +2,7 @@ find_package(reach_ros REQUIRED)
 
 # Add the plugin library
 add_library(${PROJECT_NAME}_plugins SHARED
-  PNP_IKSolver.cpp
+  pnp_ik_solver.cpp
 )
 ament_target_dependencies(${PROJECT_NAME}_plugins PUBLIC reach_ros)
 
