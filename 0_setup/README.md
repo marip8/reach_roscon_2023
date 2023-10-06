@@ -7,7 +7,7 @@ mkdir -p colcon_ws/src
 cd colcon_ws/src
 
 # Clone the workshop repository
-git clone ...
+git clone https://github.com/marip8/reach_roscon_2023.git
 
 # Install the python dependencies
 python3 -m pip install reach_roscon_2023/requirements.txt
@@ -15,9 +15,9 @@ python3 -m pip install reach_roscon_2023/requirements.txt
 
 ## Dependency install
 Now that you have a workspace for this repository, there are several different ways to install the required dependencies:
-1. [Local binary install (recommended)](#local-binary-install)
-2. [Build from source](#build-from-source)
 
+1. [Local binary install (recommended)](#local-binary-install)
+1. [Build from source](#build-from-source)
 
 ### Local binary install
 > Note: only ROS2 Humble is supported for this type of install
