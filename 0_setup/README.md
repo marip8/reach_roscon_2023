@@ -45,6 +45,7 @@ colcon build --symlink-install
 # Install the dependencies
 cd colcon_ws
 vcs import src < dependencies.repos
+rosdep install --from-paths src -iry
 
 # Build the repository
 colcon build --symlink-install
