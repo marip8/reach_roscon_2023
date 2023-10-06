@@ -10,7 +10,7 @@ cd colcon_ws/src
 git clone https://github.com/marip8/reach_roscon_2023.git
 
 # Install the python dependencies
-python3 -m pip install reach_roscon_2023/requirements.txt
+python3 -m pip install -r reach_roscon_2023/requirements.txt
 ```
 
 ## Dependency install
@@ -44,7 +44,7 @@ colcon build --symlink-install
 ```commandline
 # Install the dependencies
 cd colcon_ws
-vcs import src < dependencies.repos
+vcs import src < src/reach_roscon_2023/dependencies.repos
 rosdep install --from-paths src -iry
 
 # Build the repository
