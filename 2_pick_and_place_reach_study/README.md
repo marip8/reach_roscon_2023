@@ -39,7 +39,7 @@ In this case, the [`reach_study.py`](reach_study.py) script directly creates an 
 It will then pass the contents of the `target_pose_generator` YAML configuration directly into the class constructor as keyword arguments. 
 Look at the class constructor to know what parameters should be set in the `target_pose_generator` section configuration file.
 
-Fill in the lines marked `TODO` in the partially complete [`resources/reach_study.yaml`](resources/reach_study.yaml) file
+Fill in the lines marked `TODO` in the partially complete [`reach_study.yaml`](resources/reach_study.yaml) file
 
 > Be sure to recompile the repository after making changes to c++ files
 

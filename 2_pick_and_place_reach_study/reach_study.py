@@ -111,16 +111,16 @@ def init_ros(params: dict):
 
 
 def main():
-    reach_roscon_2023_path = os.path.join(get_package_share_path('reach_roscon_2023'), '2_pick_and_place_reach_study', 'resources')
+    reach_roscon_2023_path = os.path.join(get_package_share_path('reach_roscon_2023'), '2_pick_and_place_reach_study')
 
     # Define the reach study configuration file
     config_file = os.path.join(reach_roscon_2023_path, 'reach_study.yaml')
 
     # Define the ROS parameters needed for the c++ plugins
-    xacro_file = os.path.join(reach_roscon_2023_path, 'reach_study.xacro')
-    srdf_file = os.path.join(reach_roscon_2023_path, 'reach_study.srdf')
-    kinematics_file = os.path.join(reach_roscon_2023_path, 'kinematics.yaml')
-    joint_limits_file = os.path.join(reach_roscon_2023_path, 'joint_limits.yaml')
+    xacro_file = os.path.join(reach_roscon_2023_path, 'resources', 'reach_study.xacro')
+    srdf_file = os.path.join(reach_roscon_2023_path, 'resources', 'reach_study.srdf')
+    kinematics_file = os.path.join(reach_roscon_2023_path, 'resources', 'kinematics.yaml')
+    joint_limits_file = os.path.join(reach_roscon_2023_path, 'resources', 'joint_limits.yaml')
 
     urdf_param = Command(['xacro ', xacro_file])
     srdf_param = load_file(srdf_file)
