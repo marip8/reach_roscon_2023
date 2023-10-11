@@ -48,7 +48,7 @@ Fill in the lines marked `TODO` in the partially complete [`reach_study.yaml`](r
 Run the reach study by first launching the setup launch file, then running the `reach_study.py` script
 
 ```commandline
-ros2 launch reach_roscon_2023 setup.launch.py
+ros2 launch reach_roscon_2023 setup_pnp.launch.py
 python3 reach_study.py
 ```
 
