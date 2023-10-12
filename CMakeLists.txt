@@ -16,6 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(reach REQUIRED)
 find_package(reach_ros REQUIRED)
 
 add_library(${PROJECT_NAME}_plugins SHARED)
