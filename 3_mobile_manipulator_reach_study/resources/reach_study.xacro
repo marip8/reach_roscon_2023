@@ -67,6 +67,6 @@
   <joint name="world_to_blade" type="fixed">
     <parent link="world"/>
     <child link="blade"/>
-    <origin xyz="0.5 0.3 0.2"/>
+    <origin xyz="1.0 1.0 0.5" rpy="0 0 ${radians(-90)}"/>
   </joint>
 </robot>
