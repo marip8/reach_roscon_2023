@@ -6,16 +6,19 @@ Evaluate the reachability of a Motoman SIA20D for inspection of a vehicle hood p
 
 ## Tasks
 ### 1. Run the demo in the `reach_ros` package
--[ ] Run the "setup" launch file, which loads the URDF and starts the ancillary ROS nodes (Rviz, joint state publisher, etc.)
+- [ ] Run the "setup" launch file, which loads the URDF and starts the ancillary ROS nodes (Rviz, joint state publisher, etc.)
     ```commandline
     ros2 launch reach_ros setup.launch.py
     ```
--[ ] Run the reach study, loading pre-generated results 
+    
+- [ ] Run the reach study, loading pre-generated results 
     ```commandline
     ros2 launch reach_ros start.launch.py
     ```
--[ ] Left-click on the interactive markers to see the robot pose at each Cartesian target
--[ ] Right-click on the interactive markers to see the score of the robot
+    
+- [ ] Left-click on the interactive markers to see the robot pose at each Cartesian target
+
+- [ ] Right-click on the interactive markers to see the score of the robot
 
 ### 2. Run the `reach_ros` demo again using the same configuration file, but generate the results from scratch to a new destination
 - [ ] With the "setup" launch file still active, re-run the "start" launch file with new arguments
@@ -23,6 +26,7 @@ Evaluate the reachability of a Motoman SIA20D for inspection of a vehicle hood p
     ros2 launch reach_ros start.launch.py results_dir:=/tmp config_name:=study_2
     ```
     How many iterations did it take the study to converge?
+    
 - [ ] Open the reach study database (`/tmp/study_2/reach.db.xml`) and introspect its contents
 
 ### 3. Generate a heat map for the results of the reach study
