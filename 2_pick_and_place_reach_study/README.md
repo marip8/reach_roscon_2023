@@ -1,7 +1,7 @@
 # Pick and Place Reach Study
 
 ## Problem Statement
-Evaluate reachability of a pick and place system where a robot must pick a collection of random objects from a bin of specifiable dimensions and location and place them onto a conveyor belt
+Evaluate reachability of a pick and place system where a robot must pick a collection of random objects from a bin of specifiable dimensions and location
 
 ## Tasks
 ### 1. Create a custom `TargetPoseGenerator`
