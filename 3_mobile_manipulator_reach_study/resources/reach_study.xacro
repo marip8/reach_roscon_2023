@@ -4,29 +4,7 @@
 
   <link name="world"/>
   
-  <link name="x"/>
-  <joint name="world_to_x" type="prismatic">
-    <parent link="world"/>
-    <child link="x"/>
-    <axis xyz="1 0 0"/>
-    <limit lower="-5.0" upper="5.0" velocity="0.0" effort="0.0"/>
-  </joint>
-
-  <link name="y"/>
-  <joint name="xto_y" type="prismatic">
-    <parent link="x"/>
-    <child link="y"/>
-    <axis xyz="0 1 0"/>
-    <limit lower="-5.0" upper="5.0" velocity="0.0" effort="0.0"/>
-  </joint>
-
-  <link name="yaw"/>
-  <joint name="y_to_yaw" type="revolute">
-    <parent link="y"/>
-    <child link="yaw"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="${radians(-pi)}" upper="${radians(pi)}" velocity="0.0" effort="0.0"/>
-  </joint>
+  <!-- TODO: Define the link(s) and joint(s) needed to connect the mobile base to the world frame in such a way that it can translate in the x-y plane and rotate about the z-axis -->
 
   <xacro:property name="height" value="0.3"/>
   <xacro:property name="radius" value="0.4" />
@@ -44,10 +22,6 @@
       </geometry>
     </collision>
   </link>
-  <joint name="yaw_to_mobile_base" type="fixed">
-    <parent link="yaw"/>
-    <child link="mobile_base"/>
-  </joint>
 
   <xacro:motoman_sia20d prefix=""/>
   <joint name="mobile_base_to_robot" type="fixed">
