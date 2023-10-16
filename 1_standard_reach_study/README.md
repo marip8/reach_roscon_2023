@@ -34,8 +34,11 @@ Evaluate the reachability of a Motoman SIA20D for inspection of a vehicle hood p
     ```commandline
     python3 heat_map_generator.py /tmp/study_2/reach.db.xml `ros2 pkg prefix reach_ros`/share/reach_ros/demo/config/part.ply
     ```
+  
   > Note: this script can be found in `reach` repository, however there is small bug with the current version. See this [issue](https://github.com/ros-industrial/reach/issues/67).
+  
   > Note: the generalized command for this script is `python3 heat_map_generator.py <reach database file> <workpiece mesh file>`
+  
   > Note: the mesh provided to this script should be the same mesh from which the reach study target poses were generated
 
 ### 4. Relax the constraint on the orientation of the tool z-axis and re-run the reach study
