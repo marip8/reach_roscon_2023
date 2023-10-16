@@ -31,11 +31,11 @@ rosdep install --from-paths src -iry
 cd colcon_ws
 colcon build --symlink-install 
 
-# Add reach to the PYTHONPATH
+# Add the install directory of the `reach` Python bindings to the `PYTHONPATH` environment variable
 echo "export PYTHONPATH=$PYTHONPATH:/opt/ros/humble/lib/python3/dist-packages" >> ~/.bashrc
 ```
 
-> Note: The PYTHONPATH must be updated due to small bug in the installation of `reach`.
+> Note: The `PYTHONPATH` environment variable must be updated due to small bug in the installation of the `reach` Python bindings in version 1.6.0-1.
 
 ### Build from source
 | Distro    | Support |
