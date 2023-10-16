@@ -26,8 +26,8 @@ def load_yaml(file_path):
 
 
 parameters = [
-  {'name': 'robot_description_file',                'description': 'Path to the URDF/xacro file',                     'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'resources', 'reach_study.xacro'])},
-  {'name': 'robot_description_semantic_file',       'description': 'Path to the SRDF file',                           'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'resources', 'reach_study.srdf'])},
+  {'name': 'robot_description_file',                'description': 'Path to the URDF/xacro file',                     'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'reach_study.xacro'])},
+  {'name': 'robot_description_semantic_file',       'description': 'Path to the SRDF file',                           'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'reach_study.srdf'])},
   {'name': 'robot_description_kinematics_file',     'description': 'Path to the MoveIt kinematics file',              'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'resources', 'kinematics.yaml'])},
   {'name': 'robot_description_joint_limits_file',   'description': 'Path to the MoveIt joint limits file',            'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'resources', 'joint_limits.yaml'])},
   {'name': 'config_file',                           'description': 'Path to the reach study configuration YAML file', 'default': PathJoinSubstitution([FindPackageShare('reach_roscon_2023'), '3_mobile_manipulator_reach_study', 'reach_study.yaml'])},
