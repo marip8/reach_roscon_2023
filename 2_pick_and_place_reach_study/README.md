@@ -8,8 +8,9 @@ Evaluate reachability of a pick and place system where a robot must pick a colle
 We need to create a custom implementation of the `TargetPoseGenerator` interface for this reach study.
 This class needs to generate random poses within the specified dimensions of a rectangular bin that simulate potential pick poses for boxes.
 These random poses should have:
-    - uniformly random positions within the bins
-    - random orientations with the z-axis being within some specifiable angle tolerance (e.g., 45 degrees) of the bin origin frame z-axis
+
+  - uniformly random positions within the bins
+  - random orientations with the z-axis being within some specifiable angle tolerance (e.g., 45 degrees) of the bin origin frame z-axis
 
 Complete the lines marked `TODO` in the partially complete [`pnp_target_pose_generator.py`](pnp_target_pose_generator.py) file
 
@@ -19,10 +20,11 @@ This class can leverage all the functionality of the existing [`MoveItIKSolver`]
 
 We also need to create a plugin factory that can create new instances of this class and configure it with a YAML file.
 The YAML configuration for this custom IK solver should include relevant parameters about the bin dimensions and location, such as:
-    - bin dimensions (length, width, height)
-    - bin dimension scale factor, such that the poses generated inside the bin are not too close to the bin walls
-    - bin wall thickness
-    - TF frame to which the bin is attached
+    
+  - bin dimensions (length, width, height)
+  - bin dimension scale factor, such that the poses generated inside the bin are not too close to the bin walls
+  - bin wall thickness
+  - TF frame to which the bin is attached
 
 Finally, we will need to export the plugin factory for use by REACH.
 
