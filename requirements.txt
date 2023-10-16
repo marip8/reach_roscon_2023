@@ -1,3 +1,7 @@
+matplotlib
 numpy
+open3d
 pyquaternion
 pyyaml
+scipy
+tqdm
