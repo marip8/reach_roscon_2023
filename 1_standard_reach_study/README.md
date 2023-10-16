@@ -6,31 +6,31 @@ Evaluate the reachability of a Motoman SIA20D for inspection of a vehicle hood p
 
 ## Tasks
 ### 1. Run the demo in the `reach_ros` package
-- [ ] Run the "setup" launch file, which loads the URDF and starts the ancillary ROS nodes (Rviz, joint state publisher, etc.)
+- Run the "setup" launch file, which loads the URDF and starts the ancillary ROS nodes (Rviz, joint state publisher, etc.)
     ```commandline
     ros2 launch reach_ros setup.launch.py
     ```
     
-- [ ] Run the reach study, loading pre-generated results 
+- Run the reach study, loading pre-generated results 
     ```commandline
     ros2 launch reach_ros start.launch.py
     ```
     
-- [ ] Left-click on the interactive markers to see the robot pose at each Cartesian target
+- Left-click on the interactive markers to see the robot pose at each Cartesian target
 
-- [ ] Right-click on the interactive markers to see the score of the robot
+- Right-click on the interactive markers to see the score of the robot
 
 ### 2. Run the `reach_ros` demo again using the same configuration file, but generate the results from scratch to a new destination
-- [ ] With the "setup" launch file still active, re-run the "start" launch file with new arguments
+- With the "setup" launch file still active, re-run the "start" launch file with new arguments
     ```commandline
     ros2 launch reach_ros start.launch.py results_dir:=/tmp config_name:=study_2
     ```
     How many iterations did it take the study to converge?
     
-- [ ] Open the reach study database (`/tmp/study_2/reach.db.xml`) and introspect its contents
+- Open the reach study database (`/tmp/study_2/reach.db.xml`) and introspect its contents
 
 ### 3. Generate a heat map for the results of the reach study
-- [ ] Use [this script](heat_map_generator.py) to generate a heat map for the results of a reach study
+- Use [this script](heat_map_generator.py) to generate a heat map for the results of a reach study
     ```commandline
     python3 heat_map_generator.py /tmp/study_2/reach.db.xml `ros2 pkg prefix reach_ros`/share/reach_ros/demo/config/part.ply
     ```
@@ -48,7 +48,7 @@ We have a few options for doing this:
 
 1. (recommended) Use the provided [`DiscretizedMoveItIKSolverFactory`](https://github.com/ros-industrial/reach_ros2/tree/1.4.0#discretized-moveit-ik-solver) as the REACH IK plugin.
 This involves modifying the reach study configuration YAML file.
-> Note: The `DiscretizedMoveItIKSolverFactory` plugin has been renamed to `DiscretizedMoveItIKSolver` in version `1.4.0` of `reach_ros2`
+    > Note: The `DiscretizedMoveItIKSolverFactory` plugin has been renamed to `DiscretizedMoveItIKSolver` after version `1.4.0` of `reach_ros2`
 2. Use a different MoveIK solver plugin that allows orientation constraints to be set.
 An example is [this modification to the trac_ik MoveIt plugin](https://github.com/marip8/trac_ik).
 This change involves a modification to the MoveIt `kinematics.yaml` file, like the one [here](https://github.com/ros-industrial/reach_ros2/blob/1.4.0/demo/model/kinematics.yaml).
