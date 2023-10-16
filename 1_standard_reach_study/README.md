@@ -41,8 +41,9 @@ In the case that our reach study only requires that the tool z-axis to align wit
 we would like to relax that constraint in the reach study and see how it affects the results.
 We have a few options for doing this:
 
-1. (recommended) Use the provided [`DiscretizedMoveItIKSolver`](https://github.com/ros-industrial/reach_ros2/tree/1.3.4#discretized-moveit-ik-solver) as the REACH IK plugin.
+1. (recommended) Use the provided [`DiscretizedMoveItIKSolverFactory`](https://github.com/ros-industrial/reach_ros2/tree/1.3.4#discretized-moveit-ik-solver) as the REACH IK plugin.
 This involves modifying the reach study configuration YAML file.
+> Note: The `DiscretizedMoveItIKSolverFactory` plugin has been renamed to `DiscretizedMoveItIKSolver` in version `1.4.0` of `reach_ros2`
 2. Use a different MoveIK solver plugin that allows orientation constraints to be set.
 An example is [this modification to the trac_ik MoveIt plugin](https://github.com/marip8/trac_ik).
 This change involves a modification to the MoveIt `kinematics.yaml` file, like the one [here](https://github.com/ros-industrial/reach_ros2/blob/1.3.4/demo/model/kinematics.yaml).
