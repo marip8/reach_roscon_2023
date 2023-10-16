@@ -30,7 +30,7 @@ Evaluate the reachability of a Motoman SIA20D for inspection of a vehicle hood p
 - [ ] Open the reach study database (`/tmp/study_2/reach.db.xml`) and introspect its contents
 
 ### 3. Generate a heat map for the results of the reach study
-- [ ] Use [this script](https://github.com/ros-industrial/reach/blob/1.5.2/scripts/heat_map_generator.py) to generate a heat map for the results of a reach study
+- [ ] Use [this script](https://github.com/ros-industrial/reach/blob/1.6.0/scripts/heat_map_generator.py) to generate a heat map for the results of a reach study
     ```commandline
     python3 heat_map_generator.py <reach database file> <workpiece mesh file>
     ```
@@ -41,12 +41,12 @@ In the case that our reach study only requires that the tool z-axis to align wit
 we would like to relax that constraint in the reach study and see how it affects the results.
 We have a few options for doing this:
 
-1. (recommended) Use the provided [`DiscretizedMoveItIKSolverFactory`](https://github.com/ros-industrial/reach_ros2/tree/1.3.4#discretized-moveit-ik-solver) as the REACH IK plugin.
+1. (recommended) Use the provided [`DiscretizedMoveItIKSolverFactory`](https://github.com/ros-industrial/reach_ros2/tree/1.4.0#discretized-moveit-ik-solver) as the REACH IK plugin.
 This involves modifying the reach study configuration YAML file.
 > Note: The `DiscretizedMoveItIKSolverFactory` plugin has been renamed to `DiscretizedMoveItIKSolver` in version `1.4.0` of `reach_ros2`
 2. Use a different MoveIK solver plugin that allows orientation constraints to be set.
 An example is [this modification to the trac_ik MoveIt plugin](https://github.com/marip8/trac_ik).
-This change involves a modification to the MoveIt `kinematics.yaml` file, like the one [here](https://github.com/ros-industrial/reach_ros2/blob/1.3.4/demo/model/kinematics.yaml).
+This change involves a modification to the MoveIt `kinematics.yaml` file, like the one [here](https://github.com/ros-industrial/reach_ros2/blob/1.4.0/demo/model/kinematics.yaml).
 3. Create a custom implementation of the `TargetPoseGenerator` interface that creates multiple orientations (each rotated about the surface normal) for each target position.
 This is essentially the same as option 1, but requires that we create a new class.
 
@@ -58,7 +58,7 @@ Instead, change the objectives such that the reach study:
 - Tries to keep the joints as centered in their joint range as possible
 
 This changes involves modifying the reach study configuration YAML file.
-Check out the description of the [existing evaluator plugins](https://github.com/ros-industrial/reach_ros2/blob/1.3.4/README.md#evaluation-plugins) to figure out which plugins accomplish the objectives defined above.
+Check out the description of the [existing evaluator plugins](https://github.com/ros-industrial/reach_ros2/blob/1.4.0/README.md#evaluation-plugins) to figure out which plugins accomplish the objectives defined above.
 Re-run the reach study, saving the results to a new file, and see how the results differ from the first reach study
 
 

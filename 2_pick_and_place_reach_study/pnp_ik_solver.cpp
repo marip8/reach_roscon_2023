@@ -152,5 +152,5 @@ struct PNP_IKSolverFactory : public reach::IKSolverFactory
 /**
  *  TODO: Export the plugin factory class with a name called 'PNP_IKSolver'
  *  See the link below for an example:
- *    https://github.com/ros-industrial/reach_ros2/blob/1.3.4/src/plugins.cpp#L15
+ *    https://github.com/ros-industrial/reach_ros2/blob/1.4.0/src/plugins.cpp#L15
  */
