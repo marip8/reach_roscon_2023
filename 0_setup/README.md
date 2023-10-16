@@ -30,7 +30,12 @@ rosdep install --from-paths src -iry
 # Build the repository
 cd colcon_ws
 colcon build --symlink-install 
+
+# Add reach to the PYTHONPATH
+echo "export PYTHONPATH=$PYTHONPATH:/opt/ros/humble/lib/python3/dist-packages" >> ~/.bashrc
 ```
+
+> Note: The PYTHONPATH must be updated due to small bug in the installation of `reach`.
 
 ### Build from source
 | Distro    | Support |
