@@ -1,0 +1,36 @@
+# Anchors
+planning_group: &planning_group manipulator
+
+# TODO: Assign the correct URDF frame associated with the base link of the kinematic chain
+kinematic_base_link: &kinematic_base_link
+
+blade_frame: &blade_frame blade
+blade_mesh: &blade_mesh package://reach_roscon_2023/3_mobile_manipulator_reach_study/resources/blade.ply
+blade_pcd: &blade_pcd package://reach_roscon_2023/3_mobile_manipulator_reach_study/resources/blade.pcd
+
+# TODO: Assign appropriate optimization parameters
+optimization: ~
+
+ik_solver:
+  name: MoveItIKSolver
+  distance_threshold: 0.0
+  collision_mesh_filename: *blade_mesh
+  collision_mesh_frame: *blade_frame
+  planning_group: *planning_group
+  touch_links: []
+
+# TODO: Configure an appropriate set of reach study evaluators
+evaluator: ~
+
+display:
+  name: ROSDisplay
+  collision_mesh_filename: *blade_mesh
+  collision_mesh_frame: *blade_frame
+  kinematic_base_frame: *kinematic_base_link
+  marker_scale: 0.05
+
+# TODO: Configure an appropriate target pose generator plugin
+target_pose_generator: ~
+
+logger:
+  name: BoostProgressConsoleLogger

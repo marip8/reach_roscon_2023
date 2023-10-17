@@ -1,0 +1,52 @@
+# Anchors
+planning_group: &planning_group manipulator
+kinematic_base_link: &kinematic_base_link world
+blade_frame: &blade_frame blade
+blade_mesh: &blade_mesh package://reach_roscon_2023/3_mobile_manipulator_reach_study/resources/blade.ply
+blade_pcd: &blade_pcd package://reach_roscon_2023/3_mobile_manipulator_reach_study/resources/blade.pcd
+
+optimization:
+  radius: 0.2
+  max_steps: 10
+  step_improvement_threshold: 0.01
+
+ik_solver:
+  name: MoveItIKSolver
+  distance_threshold: 0.0
+  collision_mesh_filename: *blade_mesh
+  collision_mesh_frame: *blade_frame
+  planning_group: *planning_group
+  touch_links: []
+
+evaluator:
+  name: MultiplicativeEvaluator
+  plugins:
+    - name: ManipulabilityRatioMoveIt
+      planning_group: *planning_group
+      jacobian_row_subset: [0, 1, 2]
+    - name: DistancePenaltyMoveIt
+      planning_group: *planning_group
+      distance_threshold: 0.5
+      exponent: 2
+      collision_mesh_filename: *blade_mesh
+      collision_mesh_frame: *blade_frame
+      touch_links: []
+    - name: JointPenaltyMoveIt
+      planning_group: *planning_group
+
+display:
+  name: ROSDisplay
+  collision_mesh_filename: *blade_mesh
+  collision_mesh_frame: *blade_frame
+  kinematic_base_frame: *kinematic_base_link
+  marker_scale: 0.05
+
+target_pose_generator:
+  name: TransformedPointCloudTargetPoseGenerator
+  kinematic_base_frame: *kinematic_base_link
+  pcd_file: *blade_pcd
+  points_frame: *blade_frame
+  target_frame: *kinematic_base_link
+
+logger:
+  name: BoostProgressConsoleLogger

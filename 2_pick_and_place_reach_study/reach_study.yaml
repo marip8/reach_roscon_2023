@@ -1,0 +1,34 @@
+# Anchors
+planning_group: &planning_group manipulator
+kinematic_base_link: &kinematic_base_link base_link
+
+optimization:
+  radius: 0.2
+  max_steps: 10
+  step_improvement_threshold: 0.01
+
+# TODO: configure the IK solver
+ik_solver: ~
+
+evaluator:
+  name: MultiplicativeEvaluator
+  plugins:
+    - name: ManipulabilityMoveIt
+      planning_group: *planning_group
+    - name: DistancePenaltyMoveIt
+      planning_group: *planning_group
+      distance_threshold: 0.025
+      exponent: 2
+      touch_links: []
+
+display:
+  name: ROSDisplay
+  kinematic_base_frame: *kinematic_base_link
+  marker_scale: 0.05
+
+# TODO: configure the target pose generator
+target_pose_generator: ~
+
+
+logger:
+  name: BoostProgressConsoleLogger

@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<robot name="reach_study" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find reach_ros)/demo/model/motoman_sia20d/motoman_sia20d_macro.xacro" />
+
+  <link name="world"/>
+  
+  <!-- TODO: Define the link(s) and joint(s) needed to connect the mobile base to the world frame in such a way that it can translate in the x-y plane and rotate about the z-axis -->
+
+  <xacro:property name="height" value="0.3"/>
+  <xacro:property name="radius" value="0.4" />
+  <link name="mobile_base">
+    <visual>
+      <origin xyz="0.0 0.0 ${height / 2.0}"/>
+      <geometry>
+        <cylinder radius="${radius}" length="${height}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 ${height / 2.0}"/>
+      <geometry>
+        <cylinder radius="${radius}" length="${height}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:motoman_sia20d prefix=""/>
+  <joint name="mobile_base_to_robot" type="fixed">
+    <parent link="mobile_base"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 ${height}"/>
+  </joint>
+
+  <link name="tcp"/>
+  <joint name="tool0_to_tcp" type="fixed">
+    <parent link="tool0"/>
+    <child link="tcp"/>
+    <origin xyz="0 0 0.1"/>
+  </joint>
+
+  <link name="blade"/>
+  <joint name="world_to_blade" type="fixed">
+    <parent link="world"/>
+    <child link="blade"/>
+    <origin xyz="1.0 1.0 0.5" rpy="0 0 ${radians(-90)}"/>
+  </joint>
+</robot>
